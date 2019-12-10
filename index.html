@@ -13,30 +13,31 @@
     <title>Planner</title>
 </head>
 <body>
+    <h2 class="currentDate"></h2>
     <div class="container">
-        <h2 class="currentDate"></h2>
         <hr>
-        <div class="content-container">
+        <div class="todoContainer">
+        <h3>Todo List : </h3>
 
         </div>
     </div>
-    <button class="addButton">+</button>
+    <button class="addButton"><p id="add">+</p></button>
     <div class="modal-bg">
         <div class="modal-content">
             <div class="close">+</div>
             <img id="icon"src="./assets/images/PinClipart.com_meeting-reminder-clip-art_3594851.png" alt="icon">
             <form action="">
-                <input type="text">
-                <input type="text">
-                <input type="text">
-                <a href="" class="button">Add</a>
+                <label>Start Time:</label>
+                    <input id="startTime" type="time" value="09:00">
+                <label>End Time:</label>
+                    <input id="endTime" type="time" value="17:00">
+                    <input id="todo" type="text" placeholder="TO DO......">
+                <button class="addActivityButton">Add</button>
             </form>
         </div>
     </div>
-    <script src="./assets/js/script.js" >
-    $(".currentDate").text(moment().format('MMMM Do YYYY'));
-    console.log(moment())
-    </script>
+    <script src="./assets/js/script.js" ></script>
+    
    
 </body>
 </html>

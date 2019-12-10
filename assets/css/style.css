@@ -3,7 +3,7 @@ body{
 }
 .container{
     background-color: darkgrey;
-    height: auto;
+    height: 100%;
     width: 960px;
 }
 .modal-bg{
@@ -21,11 +21,44 @@ body{
 .modal-content{
     width:600px;
     height: 400px;
-    background-color: white;
+    opacity: 1.0 !important;
+    background-color: lightblue;
     border-radius: 10px;
     text-align: center;
     align-items: center;
+    
    
+}
+.addButton{
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    height: 110px;
+    width: 110px;
+    justify-content: center;
+    align-items: center;
+    font-size: 90px;
+    position: fixed;
+    bottom: 50px;
+    left:50px;
+}
+#todo{
+    margin-top: 10px;
+}
+.addActivityButton{
+    display: flex;
+    margin-left:200px;
+    font-size: 30px;
+    width: 200px;
+    background-color: #87c1ff;
+    justify-content: center;
+    border-radius: 25px;
+    margin-top: 20px;
+    border: #4CAF50 solid;
+}
+#add{
+    margin-top: -20px;
 }
 #icon{
 
@@ -37,6 +70,18 @@ body{
 
     
 }
+#complete{
+    position: absolute;
+    right: 140px;
+    font-size: 35px;
+    border: #4CAF50 solid;
+    border-radius: 25px;
+}
+#todo-data{
+    padding-left: 50px;
+    margin-bottom: 20px;
+    font-size: 40px;
+}
 .close{
     position: absolute;
     top: 0;
@@ -45,3 +90,21 @@ body{
     transform: rotate(45deg);
     cursor:pointer;
 }
+.currentDate{
+    margin-top: 150px;
+    display: flex;
+    text-align: center;
+    background-color: aqua;
+}
+.todoContainer{
+    width: 960px;
+    height: 1200px;
+    background-color: aqua;
+}
+
+input{
+    font-size: 2em;
+    border-radius: 15px;
+    border: #4CAF50 solid;
+
+  }
