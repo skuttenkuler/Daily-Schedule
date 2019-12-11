@@ -4,34 +4,31 @@ $(document).ready(function(){
 
 //display current date with moment in header
 //header date
-// variables for time constraints
-const minHour = 9;
-const maxHour = 17;
 
 //object to store all entries;
-const activities = {};
-let currentDate = getDate();
+var activities = {};
+let currentDate = presentDate();
 let hour = Hour();
 
-renderTODOS();
+renderList();
 
-function rederTODOS(){
-    renderActivity();
+function renderList(){
+    renderTodo();
     buildTodo();
     
 }
-function renderActivity(){
-    if(Activity()){
-        listItem = renderActivity();
+function renderTodo(){
+    if(getTodo()){
+        activities = getTodo();
     }
-    if(!listItem[tody]) {
-        listItem[today] = renderActivity();
-        storeActivity();
+    if(!activities[currentDate]) {
+        activities[currentDate] = renderHours();
+        storeLocal();
     }
 }
 function renderHours(){
-    const hours = {};
-    for(let i = minHour; i <= maxHour; i++){
+    let hours = {};
+    for(let i = 9; i <= 17; i++){
         hours[i] = "";
     }
     return hours;
@@ -41,33 +38,49 @@ function renderHours(){
 
 
 function buildTodo(){
-    $(".todoContainer").empty();
-    for(let i = minHour; i <= maxHour; i++){
-        
+    //reset
+    //$(".todoContainer").empty();
+    //for loop for each entry
+    for(let i = 9; i <= 17; i++){
+        //create <div> for each row
+        var input = $(".activity").val()
         todoRow = $("<div>");
-            todoRow.addClass("todo-row" + ppf);
+            //add function and return value of past preset or future
+            todoRow.addClass("todo-row");
+            todoRow.attr("data-tense", ppf)
+            //add index id to keep track of index textarea
             todoRow.attr("id", i);
+        //create div for time(hour) associates with row
         todoHour = $("<div>");
             todoHour.addClass("hour");
-        todoSpan = $("<span>").text(formatHour(i));
-        todoHour.append(todoSpan);
-
-
-
-        todoData.attr("id", "todo-data")
-        seperator = $("<hr>")
-        completeButton = $("<button>").text("Complete");
-        completeButton.attr("id", "complete")
-        todoData.text(buildData.start + " - " + buildData.end + " " + buildData.todo);
-        todoRow.append(todoData, completeButton);
+            // add the displayed hour to the div
+            todoSpan = $("<span>").text(formatHour(i));
+            todoHour.append(todoSpan);
+        //create textarea for activities
+        todoText = $("<textarea>");
+            //add cleass
+            todoText.addClass("activity");
+            //add index associated with time index
+            todoText.attr("data-hour", i);
+            todoText.attr("value", "");
+            todoText.val(activities[currentDate][i]);
+        saveButton = $("<button>").text("Add Activity");
+        saveButton.attr("id", "add")
         
-        todoTable.append(todoRow);
-        $(".todoContainer").append(todoTable, seperator);
-        $(".todoContainer").DataTable();
+        todoRow.append(todoHour, todoText, saveButton);
+        $(".todoContainer").append(todoRow);
+        console.log(input)
+        
     }
     
     
-}    
+}   
+function addActivity(){
+    var hour = $(this).data().hour;
+    activities[currentDate][hour] = $(".activity").val()
+    //console.log(activities)
+    storeLocal();
+}
 
 // time function for past present and future in comparison to current hour
 function ppf(i){
@@ -75,74 +88,31 @@ function ppf(i){
         return "past";
     } else if(i == hour){
         return "present";
-    } else if( i>hour){
+    } else if(i > hour){
         return "future"
     }
 }
-function getDate() {    
+
+function presentDate() {    
     return moment().format('YYYYMMDD');
 }
 function Hour(){
-    return moment().format('h')
+    return moment().format('k')
 }
 function formatHour(h){
     return moment(h, 'H').format('ha')
 }
-//localStorage
+//////////  localStorage  //////////
 function storeLocal(){
-    return localStorage.setItem("TODO" , JSON.stringify(data));
+    return localStorage.setItem("TODO" , JSON.stringify(activities));
 }
-function getTODO(){
+function getTodo(){
     return JSON.parse(localStorage.getItem("TODO"))
 }
 
-//eventListener on completion toggle
-//animate tag, to change whether current TODO or not
-
-$(function(){     
-    var d = new Date(),        
-        h = d.getHours(),
-        m = d.getMinutes();
-        minTime = '9:00am';
-        maxTime = '5:00pm';
-    if(h < 10) h = '0' + h; 
-    if(m < 10) m = '0' + m; 
-    $('input[type="time"][value=""]').each(function(){ 
-      $(this).attr({'value': h + ':' + m});
-    });
-  });
-
-
-});
-
-//////////  LISTENERS  //////////
 //get current date and display
-$(".currentDate").text(moment().format('MMMM Do YYYY'));
-//function to add activity to local storage
+$(".currentDate").text("Your Todo List for   " + moment().format('MMMM Do YYYY'));
 
-$(".addButton").on("click", function(){
-    $(".modal-bg").css("display","flex");
+/////////  Listeners /////////
+$("#add").on("click", addActivity);
 });
-$(".close").on("click", function(){
-    
-    $(".modal-bg").css("display", "none");
-})
-//each prompt comes with button to submit values to localStorage
-$(".addActivityButton").on("click", function(event){
-    event.preventDefault();
-    $(".modal-bg").css("display", "none");
-    let start = $("#startTime").val()
-    //console.log(start)
-    let end = $("#endTime").val()
-    //console.log(end)
-    let todo = $("#todo").val()
-
-    //console.log(todo)
-    let data = {
-        "start":start,
-        "end":end,
-        "todo":todo}
-
-    localStorage.setItem("TODO", JSON.stringify(data));
-    buildTodo();
-})
