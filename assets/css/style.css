@@ -7,7 +7,8 @@ body{
     margin-top:40px;
 }
 .todoContainer{
-
+    width: 960px;
+   
 }
 .hour{
  margin-top:15px;
@@ -15,9 +16,47 @@ body{
  color: blue;
 
 }
-.todo-row:after {
-        content: '';
-        display:block;
-        clear:both;
-    }
+
+.todo-row {
+    align-items: center;
+    width: 82%;
+    background-color: #f1f3f5;
+    color: #343a40;
+    border: 1px solid #fff;
+
+    height: 75px;
+}
+.todo-row button{
+
+    width: 100px;
     
+    border: 3px solid #fff;
+    border-radius: 0 0.5rem 0.5rem 0;
+    float: right;
+    height: 75px;
+    
+}
+    
+
+@media screen and (min-width: 760px) {
+    .hour-row {
+        height: 100px;
+    }
+
+    .todoContainer {
+        height: 100%;
+        float:left;
+    }
+
+    .hour{
+        width: 8%;
+        margin-top:0;
+        font-weight: 400;
+        border-top: 2px solid #f1f3f5;
+        padding-top:5px;
+    }
+
+    .add {
+        width: 10%;
+    }
+

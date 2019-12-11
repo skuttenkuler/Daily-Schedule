@@ -39,7 +39,7 @@ function renderHours(){
 
 function buildTodo(){
     //reset
-    //$(".todoContainer").empty();
+    $(".todoContainer").empty();
     //for loop for each entry
     for(let i = 9; i <= 17; i++){
         //create <div> for each row
@@ -76,7 +76,7 @@ function buildTodo(){
     
 }   
 function addActivity(){
-    var hour = $(this).data().hour;
+    var hour = $(".activity").data().hour;
     activities[currentDate][hour] = $(".activity").val()
     //console.log(activities)
     storeLocal();
@@ -114,5 +114,5 @@ function getTodo(){
 $(".currentDate").text("Your Todo List for   " + moment().format('MMMM Do YYYY'));
 
 /////////  Listeners /////////
-$("#add").on("click", addActivity);
+$(document).on("click", "#add", addActivity);
 });
